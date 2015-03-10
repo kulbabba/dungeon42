@@ -14,6 +14,7 @@ class Player:
     hp = 100
     max_hp = 100
     position = 0
+    key = 0
     
     def __init__(self, pos):
         self.position = pos
@@ -48,6 +49,10 @@ class Player:
             return False
         else:
             return True
+    def have_key(self, keys): 
+        self.key = self.key + keys
+    def get_key(self):
+        return self.key
 
 class Screen:
     def __init__(self, msg, act, action_cb):
@@ -100,10 +105,41 @@ eaction
 )
 
 #-----------------------
-
-mapMainCorridorEnd = Screen("scr4", "1 2 3", baction)
-mapFirstRoom = Screen("scr2", "1 2 3", baction)
-mapClosedDoor = ("The door is closed")
+def third_room_action(u_input, player):
+    print("scr7" + str(u_input))
+    if u_input == 1:
+         print("The chest is empty.")
+         player.set_position(mapThirdRoom)
+    elif u_input == 2:
+         print("There is undead. He rises. He attacks you.")
+         player.dec_health()
+    elif u_input == 3:
+         print ("You are lucky. You have found some money")
+    elif u_input == 4:
+         print("There is a key.")
+         player.have_key(1)
+         player.set_position(mapMainCorridorBegin)
+         
+mapThirdRoom = Screen("You see four chests", "1. Open the first one.\n2.Open the second chest.\n3.Open the third chest.\n4.Open the fourth chest.", third_room_action)
+         
+def end_corridor_action(u_input, player):
+     print("" + str(u_input))
+     if u_input == 1:
+             player.set_position(mapThirdRoom)
+     elif u_input == 2:
+             print ("the door is closed")
+         
+mapMainCorridorEnd = Screen("You see one door in front of you and one door on the right.", "1. Open the door in front of you\n2. Open the door on the left.", end_corridor_action)
+def first_room_action(u_input, player):
+     print("" + str(u_input))
+     if u_input == 1:
+         print("The coffin is opened. You see the undead...")
+     elif u_input == 2:
+         if player.get_key() > 0:
+             print ("scr9")
+         else:
+             print("the door is closed:(")
+mapFirstRoom = Screen("You can see  dark room. There is coffin.There is one more door.", "1. Open the coffin.\n2. Open the door", first_room_action)
 
 def begin_action(u_input, player):
     print("" + str(u_input))
@@ -139,4 +175,3 @@ def main():
 if __name__ == '__main__':
     main()
 
-#its just a comment. Hi Phil;)
