@@ -107,15 +107,18 @@ eaction
 #-----------------------
 def third_room_action(u_input, player):
     print("scr7" + str(u_input))
-    if u_input == 1:
+    import random
+    foo = [1, 2, 3, 4]
+    random_choice = random.choice(foo)
+    if random_choice == 1:
          print("The chest is empty.")
          player.set_position(mapThirdRoom)
-    elif u_input == 2:
+    elif random_choice == 2:
          print("There is undead. He rises. He attacks you.")
          player.dec_health()
-    elif u_input == 3:
+    elif random_choice == 3:
          print ("You are lucky. You have found some money")
-    elif u_input == 4:
+    elif random_choice == 4:
          print("There is a key.")
          player.have_key(1)
          player.set_position(mapMainCorridorBegin)
