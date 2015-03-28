@@ -105,6 +105,17 @@ eaction
 )
 
 #-----------------------
+
+def mapSecondRoom(u_input, player):
+     print("" + str(u_input))
+     if u_input == 1:
+             print ("there is undead, there is a key")
+	     player.have_key(2)
+
+mapSecondRoom = Screen("You see one door in front of you and one door on the right.", "1. Open the door in front of you\n2. Open the door on the left.", end_corridor_action)
+
+
+#-----------------------
 def third_room_action(u_input, player):
     print("scr7" + str(u_input))
     import random
@@ -125,14 +136,19 @@ def third_room_action(u_input, player):
          
 mapThirdRoom = Screen("You see four chests", "1. Open the first one.\n2.Open the second chest.\n3.Open the third chest.\n4.Open the fourth chest.", third_room_action)
          
+#-----------------------
 def end_corridor_action(u_input, player):
      print("" + str(u_input))
      if u_input == 1:
              player.set_position(mapThirdRoom)
      elif u_input == 2:
-             print ("the door is closed")
+	     if player.get_key() > 1:
+	     	print ("scr10")
+	     else:
+	     	print ("the door is closed")
          
 mapMainCorridorEnd = Screen("You see one door in front of you and one door on the right.", "1. Open the door in front of you\n2. Open the door on the left.", end_corridor_action)
+#-----------------------
 def first_room_action(u_input, player):
      print("" + str(u_input))
      if u_input == 1:
@@ -144,6 +160,7 @@ def first_room_action(u_input, player):
              print("the door is closed:(")
 mapFirstRoom = Screen("You can see  dark room. There is coffin.There is one more door.", "1. Open the coffin.\n2. Open the door", first_room_action)
 
+#-----------------------
 def begin_action(u_input, player):
     print("" + str(u_input))
     if u_input == 1:
