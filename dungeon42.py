@@ -31,16 +31,22 @@ class Player:
     hp = 100
     max_hp = 100
     position = 0
+    old_position = 0
     key = 0
 
     def __init__(self, pos):
         self.position = pos
+        self.old_position = self.position
 
-    def set_position(self, new_position):    
+    def set_position(self, new_position):
         if self.is_dead() == True:
             print("ERROR.Since you are dead, you cannot walk")
         else:
+            self.old_position = self.position
             self.position = new_position
+
+    def go_back(self):
+        self.position = self.old_position
 
     def get_position(self):
         return self.position
@@ -213,9 +219,13 @@ def main():
     while player.get_health() > 0:
         screen = player.get_position()
         print('---\n' + screen.msg + '\n---\n\n')
-        print(screen.act + '\n\n')
+        print(screen.act + '\n')
+        print("0. Go back\n\n")
         i = int(dun_input())
-        screen.action(i, player)
+        if i == 0:
+            player.go_back()
+        else:
+            screen.action(i, player)
 
     if player.is_dead() == True:
         print("You have died a horrible death!")
