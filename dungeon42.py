@@ -31,22 +31,23 @@ class Player:
     hp = 100
     max_hp = 100
     position = 0
-    old_position = 0
+    old_position = []
     key = 0
 
     def __init__(self, pos):
         self.position = pos
-        self.old_position = self.position
+        self.old_position.append(self.position)
 
     def set_position(self, new_position):
         if self.is_dead() == True:
             print("ERROR.Since you are dead, you cannot walk")
         else:
-            self.old_position = self.position
+            self.old_position.append(self.position)
             self.position = new_position
 
     def go_back(self):
-        self.position = self.old_position
+        if len(self.old_position) > 0:
+            self.position = self.old_position.pop()
 
     def get_position(self):
         return self.position
