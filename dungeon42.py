@@ -20,6 +20,8 @@ else:
 # Global variables
 #
 chest_content_list = ["empty", "key", "undead", "money"]
+chest_content_status = [True, True, True, True] # False = empty; True = full;
+
 
 #
 # Classes
@@ -103,11 +105,13 @@ mapSecondRoom = Screen(
 
 # TODO: Check all actions for the chests
 def third_room_action(u_input, player):
-    choice = chest_content_list[u_input - 1]
+    choice_index = u_input - 1
+    choice = chest_content_list[choice_index]
 
-    if choice == "empty":
+    # Check if chest is empty
+    if chest_content_status[choice_index] == False or choice == "empty":
         print("The chest is empty")
-        player.set_position(mapThirdRoom)
+
     elif choice == "undead":
         print("There is undead. He attacks you")
         player.dec_health(50)
@@ -118,6 +122,8 @@ def third_room_action(u_input, player):
         print("You have found a key")
         player.have_key(1)
         player.set_position(mapMainCorridorBegin)
+
+    chest_content_status[choice_index] = False
 
 
 mapThirdRoom = Screen(
