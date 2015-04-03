@@ -99,11 +99,12 @@ mapSecondRoom = Screen(
     second_room_action
 )
 
-
 #=====================================
 
 # TODO: Check all actions for the chests
-def third_room_choice_action(choice, player):
+def third_room_action(u_input, player):
+    choice = chest_content_list[u_input - 1]
+
     if choice == "empty":
         print("The chest is empty")
         player.set_position(mapThirdRoom)
@@ -119,32 +120,13 @@ def third_room_choice_action(choice, player):
         player.set_position(mapMainCorridorBegin)
 
 
-# TODO: Check "back" menu choice    
-def third_room_action(u_input, player):    
-    if u_input == 1:
-        third_room_choice_action(chest_content_list[0], player)
-
-    elif u_input == 2:
-        third_room_choice_action(chest_content_list[1], player)
-
-    elif u_input == 3:
-        third_room_choice_action(chest_content_list[2], player)
-
-    elif u_input == 4:
-        third_room_choice_action(chest_content_list[3], player)
-        
-    elif u_input == 5:
-        player.set_position(mapMainCorridorBegin)
-
-
 mapThirdRoom = Screen(
     "You see four chests",
 
     "1. Open the first one.\n"
     "2. Open the second chest.\n"
     "3. Open the third chest.\n"
-    "4. Open the fourth chest.\n"
-    "5. Go to the beginning.",
+    "4. Open the fourth chest.\n",
 
     third_room_action
 )
