@@ -172,6 +172,7 @@ def first_room_action(u_input, player):
     print("" + str(u_input))
     if u_input == 1:
         print("The coffin is opened. You see the undead...")
+        player.dec_health(50)
     elif u_input == 2:
         if player.get_key() > 0:
             player.set_position(mapSecondRoom)
